@@ -1,4 +1,4 @@
-const COMPANY_ID ='f4035320-be1f-4e71-8005-2363a6f074ee/';
+const COMPANY_ID ='f4035320-be1f-4e71-8005-2363a6f074ee';
 const ENTITY_IDX=1;
 const ACTION_IDX=2;
 
@@ -9,10 +9,13 @@ const MEMBER='member';
 /** actions **/
 const CREATE ='create';
 const UPDATE ='update';
+const DETAIL ='detail';
 
 
 /** topics **/
-const S3 ='s3/';
+const TOPIC_COMPANY_ID ='f4035320-be1f-4e71-8005-2363a6f074ee/';
+const FILE ='file/';
+const DATABASE ='database/';
 
 
 
@@ -33,6 +36,9 @@ module.exports={
 
 	CREATE:CREATE,
 	UPDATE:UPDATE,
+	DETAIL:DETAIL,
 
-	S3:S3
+	TOPIC_COMPANY_ID:TOPIC_COMPANY_ID,
+	FILE:FILE,
+	DATABASE:DATABASE
 }

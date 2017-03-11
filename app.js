@@ -3,21 +3,22 @@ global.constants=require('./constants');
 var util =require('./util');
 
 var mqtt = require('mqtt');
-global.mqttClientOne= mqtt.connect('tcp://54.187.14.85:1883');
-global.mqttClientTwo= mqtt.connect('tcp://54.187.14.85:1883');
+global.mqttClientUI= mqtt.connect('tcp://35.164.176.15:1883');
+global.mqttClientData= mqtt.connect('tcp://35.164.176.15:1883');
 
 
-mqttClientOne.on('connect', function () {
-	mqttClientOne.subscribe(constants.COMPANY_ID+'#');
+mqttClientUI.on('connect', function () {
+	mqttClientUI.subscribe(constants.TOPIC_COMPANY_ID+'#');
 });
  
 
-mqttClientOne.on('message', function (topic, message) {
+mqttClientUI.on('message', function (topic, message) {
 	var entityStr =util.getLevelNTopic(topic, constants.ENTITY_IDX);
-	var action =util.getLevelNTopic(topic, constants.ACTION_IDX);
-	var entity =util.getEntity(entityStr);
-	
-	entity.execute(action, JSON.parse(message.toString()));
+	var entity =util.getEntity(entityStr);	
 
+	var action =util.getLevelNTopic(topic, constants.ACTION_IDX);
+	var para=message.toString()?JSON.parse(message.toString()):{};
+	console.log('~~~',para);
+	entity.execute(action, para);
 });
 

@@ -7,12 +7,8 @@ function getEntity(entityStr){
 	return require('./entity/'+entityStr);
 }
 
-function toPayload(obj){
-	return JSON.stringify(obj);
-}
 
 module.exports={
 	getLevelNTopic:getLevelNTopic,
-	getEntity:getEntity,
-	toPayload:toPayload
+	getEntity:getEntity
 }

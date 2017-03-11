@@ -8,28 +8,31 @@ function execute(action, para){
 
 
 function create(para){
-	var qr_pic_filename=para.qr_code+"_qr.jpg";
-	var profile_pic_filename=para.qr_code+"_profile.jpg";	
+	var qrPicFilename=para.qrCode+"_qr.jpg";
+	var profilePicFilename=para.qrCode+"_profile.jpg";	
 
 	var files =[
-		{filename:para.qr_code+"_qr.jpg",file:para.qr_pic},
-		{filename:para.qr_code+"_profile.jpg",file:para.profile_pic},
+		{filename:constants.TOPIC_COMPANY_ID+para.qrCode+"_qr.jpg",data:para.qrPic},
+		{filename:constants.TOPIC_COMPANY_ID+para.qrCode+"_profile.jpg",data:para.profilePic},
 	];
+	
+	var fileTopic=constants.FILE+constants.CREATE;
+	mqttClientTwo.publish(fileTopic, JSON.stringify(files));
 
-	mqttClientTwo.publish(constants.S3+constants.COMPANY_ID, JSON.stringify(files));
+	para.qrPic=qrPicFilename;
+	para.profilePic=profilePicFilename;
+	para.companyId=constants.COMPANY_ID;
 
-	para.qr_pic=qr_pic_filename;
-	para.profile_pic=profile_pic_filename;
-
-	var query="match (c:company {company_id:{company_id}}) \
+	var query="match (c:company {companyId:{companyId}}) \
 				merge (e:email {email: {email}}) \
-				merge (m:member {qr_code:{qr_code}})\
-				set m.qr_pic={qr_pic}, m.profile_pic={profile_pic}, m.firstname={firstname}, m.lastname={lastname}, m.phone={phone}, m.date_of_birth={date_of_birth}\
-				merge (c)-[cmr:has_member ]->(m) \
-				merge (e)-[emr:is_member]->(m)";
+				merge (m:member {qrCode:{qrCode}})\
+				set m.qrPic={qrPic}, m.profilePic={profilePic}, m.firstname={firstname}, m.lastname={lastname}, m.phone={phone}, m.dateOfBirth={dateOfBirth}\
+				merge (c)-[cmr:hasMember ]->(m) \
+				merge (e)-[emr:ownMember]->(m)";
 
-	mqttClientTwo.publish();			
-
+	var dbTopic=constants.DATABASE;
+	console.log(para);
+	mqttClientTwo.publish(dbTopic, JSON.stringify({query:query, para:para}));				
 }
 
 module.exports = {
