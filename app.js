@@ -1,6 +1,6 @@
 global.constants=require('./constants');
 
-var util =require('./util');
+global.util =require('./util');
 
 var mqtt = require('mqtt');
 global.mqttClientUI= mqtt.connect('tcp://35.164.176.15:1883');
@@ -18,7 +18,7 @@ mqttClientUI.on('message', function (topic, message) {
 
 	var action =util.getLevelNTopic(topic, constants.ACTION_IDX);
 	var para=message.toString()?JSON.parse(message.toString()):{};
-	console.log('~~~',para);
+
 	entity.execute(action, para);
 });
 

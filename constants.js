@@ -1,3 +1,5 @@
+/**system**/
+const DEBUG=true;
 const COMPANY_ID ='f4035320-be1f-4e71-8005-2363a6f074ee';
 const ENTITY_IDX=1;
 const ACTION_IDX=2;
@@ -30,6 +32,7 @@ const COMPANY_SAVE = 'company/save/';
 const VISIT_ADD ='visit/add/';
 
 module.exports={
+	DEBUG:DEBUG,
 	COMPANY_ID :COMPANY_ID,
 	ENTITY_IDX:ENTITY_IDX,
 	ACTION_IDX:ACTION_IDX,

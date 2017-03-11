@@ -17,7 +17,7 @@ function create(para){
 	];
 	
 	var fileTopic=constants.FILE+constants.CREATE;
-	mqttClientTwo.publish(fileTopic, JSON.stringify(files));
+	mqttClientData.publish(fileTopic, JSON.stringify(files));
 
 	para.qrPic=qrPicFilename;
 	para.profilePic=profilePicFilename;
@@ -32,7 +32,7 @@ function create(para){
 
 	var dbTopic=constants.DATABASE;
 	console.log(para);
-	mqttClientTwo.publish(dbTopic, JSON.stringify({query:query, para:para}));				
+	mqttClientData.publish(dbTopic, JSON.stringify({query:query, para:para}));				
 }
 
 module.exports = {
