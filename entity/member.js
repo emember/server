@@ -31,7 +31,6 @@ function create(para){
 				merge (e)-[emr:ownMember]->(m)";
 
 	var dbTopic=constants.DATABASE;
-	console.log(para);
 	mqttClientData.publish(dbTopic, JSON.stringify({query:query, para:para}));				
 }
 

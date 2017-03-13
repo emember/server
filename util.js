@@ -11,7 +11,7 @@ function getEntity(entityStr){
 
 function log(msg){
 	if(constants.DEBUG){
-		console.log(moment().format(),msg);
+		console.log('~~ server~~~'+moment().format(),msg);
 	}
 }
 

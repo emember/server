@@ -12,6 +12,7 @@ const MEMBER='member';
 const CREATE ='create';
 const UPDATE ='update';
 const DETAIL ='detail';
+const VALIDATE ='validate';
 
 
 /** topics **/
@@ -40,6 +41,7 @@ module.exports={
 	CREATE:CREATE,
 	UPDATE:UPDATE,
 	DETAIL:DETAIL,
+	VALIDATE:VALIDATE,
 
 	TOPIC_COMPANY_ID:TOPIC_COMPANY_ID,
 	FILE:FILE,
