@@ -6,8 +6,12 @@ function execute(action, para){
 		case constants.VALIDATE:
 			validate(para);
 			break;
+		case constants.ACTIVATE:
+			activate(para);
+			break;
 	}
 }
+
 
 
 function create(para){
@@ -30,6 +34,17 @@ function validate(para){
 	return count(u)>0";
 
 	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));			
+}
+
+function activate(para){
+	para.companyId=constants.COMPANY_ID;
+
+	var query ="match (c:company {companyId:{companyId}})\
+	match (c) -[r:hasAppUser]->(u:appUser {activationCode:{activationCode}}) \
+	set u.token={token} \
+	return u";
+
+	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));				
 }
 
 module.exports = {

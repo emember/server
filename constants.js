@@ -13,6 +13,7 @@ const CREATE ='create';
 const UPDATE ='update';
 const DETAIL ='detail';
 const VALIDATE ='validate';
+const ACTIVATE ='activate';
 
 
 /** topics **/
@@ -42,6 +43,7 @@ module.exports={
 	UPDATE:UPDATE,
 	DETAIL:DETAIL,
 	VALIDATE:VALIDATE,
+	ACTIVATE:ACTIVATE,
 
 	TOPIC_COMPANY_ID:TOPIC_COMPANY_ID,
 	FILE:FILE,
