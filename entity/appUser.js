@@ -27,7 +27,7 @@ function validate(para){
 	var query ="match (c:company {companyId:{companyId}})\
 	match (c) -[r:hasAppUser]->(u:appUser {appId:{appId}, appKey:{appKey}}) \
 	set u.token={token} \
-	return u.token";
+	return count(u)>0";
 
 	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));			
 }
