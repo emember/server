@@ -42,7 +42,7 @@ function activate(para){
 	var query ="match (c:company {companyId:{companyId}})\
 	match (c) -[r:hasAppUser]->(u:appUser {activationCode:{activationCode}}) \
 	set u.token={token} \
-	return u";
+	return {appId:u.appId, appKey:u.appKey}";
 
 	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));				
 }
