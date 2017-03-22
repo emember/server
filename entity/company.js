@@ -9,7 +9,7 @@ function execute(action, para){
 function detail(para){
 	para.companyId=constants.COMPANY_ID;
 	var query='MATCH (n:company) where n.companyId={companyId} RETURN n';
-	mqttClientData.publish(constants.DATABASE, JSON.stringify({query:query, para:para}));
+	dataQFitting.publish(constants.DATABASE, JSON.stringify({query:query, para:para}));
 }
 
 module.exports = {

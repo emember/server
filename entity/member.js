@@ -17,7 +17,7 @@ function create(para){
 	];
 	
 	var fileTopic=constants.FILE+constants.CREATE;
-	mqttClientData.publish(fileTopic, JSON.stringify(files));
+	dataQFitting.publish(fileTopic, JSON.stringify(files));
 
 	para.qrPic=qrPicFilename;
 	para.profilePic=profilePicFilename;
@@ -31,7 +31,7 @@ function create(para){
 				merge (e)-[emr:ownMember]->(m)";
 
 	var dbTopic=constants.DATABASE;
-	mqttClientData.publish(dbTopic, JSON.stringify({query:query, para:para}));				
+	dataQFitting.publish(dbTopic, JSON.stringify({query:query, para:para}));				
 }
 
 module.exports = {

@@ -21,7 +21,7 @@ function create(para){
 				set u.email={email}, u.appId='12345', u.appKey='abcde', u.activationCode='1a2b3c' \
 				return u";
 
-	mqttClientData.publish(dbTopic, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));		
+	dataQFitting.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));		
 
 }
 
@@ -33,7 +33,7 @@ function validate(para){
 	set u.token={token} \
 	return count(u)>0";
 
-	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));			
+	dataQFitting.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));			
 }
 
 function activate(para){
@@ -44,7 +44,7 @@ function activate(para){
 	set u.token={token} \
 	return {appId:u.appId, appKey:u.appKey}";
 
-	mqttClientData.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));				
+	dataQFitting.publish(constants.DATABASE, JSON.stringify({ticket:para.token+para.action, query:query, para:para}));				
 }
 
 module.exports = {

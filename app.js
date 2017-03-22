@@ -8,16 +8,16 @@ global.util =require('./util');
 
 /*** main **/
 var mqtt = require('mqtt');
-global.mqttClientUI= mqtt.connect('tcp://35.164.176.15:1883');
-global.mqttClientData= mqtt.connect('tcp://35.164.176.15:1883');
+global.uiQFitting= mqtt.connect('tcp://35.164.176.15:1883');
+global.dataQFitting= mqtt.connect('tcp://35.164.176.15:1883');
 
 
-mqttClientUI.on('connect', function () {
-	mqttClientUI.subscribe(constants.TOPIC_COMPANY_ID+'#');
+uiQFitting.on('connect', function () {
+	uiQFitting.subscribe(constants.TOPIC_COMPANY_ID+'#');
 });
  
 
-mqttClientUI.on('message', function (topic, message) {
+uiQFitting.on('message', function (topic, message) {
 	util.log(topic);
 	
 	var entityStr =util.getLevelNTopic(topic, constants.ENTITY_IDX);
