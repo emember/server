@@ -3,11 +3,8 @@
   "version": "1.0.0",
   "description": "emember server code",
   "main": "app.js",
-  "dependencies": {
-    "moment": "^2.17.1"
-  },
-  "devDependencies": {},
   "scripts": {
+    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,5 +20,16 @@
   "bugs": {
     "url": "https://github.com/emember/server/issues"
   },
-  "homepage": "https://github.com/emember/server#readme"
+  "homepage": "https://github.com/emember/server#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-register": "^6.24.0",
+    "babel-loader": "^7.0.0"
+  },
+  "dependencies": {
+    "moment": "^2.18.1",
+    "mqtt": "^2.5.0",
+    "nconf": "^0.8.4",
+    "winston": "^2.3.1"
+  }
 }
