@@ -1,27 +1,30 @@
-function execute(action, para){
-	switch(action){
-		case constant.CREATE:
-			create(para);
-			break;
+import {Constant} from 'util/Constant';
+
+class Member{
+	execute(action, para){
+		switch(action){
+			case Constant.CREATE:
+				create(para);
+				break;
+		}
 	}
 }
-
 
 function create(para){
 	var qrPicFilename=para.qrCode+"_qr.jpg";
 	var profilePicFilename=para.qrCode+"_profile.jpg";	
 
 	var files =[
-		{filename:constant.TOPIC_COMPANY_ID+para.qrCode+"_qr.jpg",data:para.qrPic},
-		{filename:constant.TOPIC_COMPANY_ID+para.qrCode+"_profile.jpg",data:para.profilePic},
+		{filename:Constant.TOPIC_COMPANY_ID+para.qrCode+"_qr.jpg",data:para.qrPic},
+		{filename:Constant.TOPIC_COMPANY_ID+para.qrCode+"_profile.jpg",data:para.profilePic},
 	];
 	
-	var fileTopic=constant.FILE+constant.CREATE;
+	var fileTopic=Constant.FILE+Constant.CREATE;
 	dataQFitting.publish(fileTopic, JSON.stringify(files));
 
 	para.qrPic=qrPicFilename;
 	para.profilePic=profilePicFilename;
-	para.companyId=constant.COMPANY_ID;
+	para.companyId=Constant.COMPANY_ID;
 
 	var query="match (c:company {companyId:{companyId}}) \
 				merge (e:email {email: {email}}) \
@@ -30,7 +33,7 @@ function create(para){
 				merge (c)-[cmr:hasMember ]->(m) \
 				merge (e)-[emr:ownMember]->(m)";
 
-	var dbTopic=constant.DATABASE;
+	var dbTopic=Constant.DATABASE;
 	dataQFitting.publish(dbTopic, JSON.stringify({query:query, para:para}));				
 }
 

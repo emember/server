@@ -10,7 +10,7 @@ console.log(AWS.config);
 var iot = new AWS.Iot();
 
 var params ={
-    setAsActive:true || false
+    setAsActive:true
 };
 
 iot.createKeysAndCertificate(params,(err, data)=>{
