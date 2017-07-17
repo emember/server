@@ -18,9 +18,11 @@ fs.readdirSync("node_modules").filter(
 
 module.exports={
     entry:{
-        Main:'./src/Lambda.js',
+        // Main:'./src/Lambda.js',
+
         Server:'./src/Server.js',
-        ConstantTest:'./test/ConstantTest.js'
+
+        // ConstantTest:'./test/ConstantTest.js'
     },
     output:{
         filename:'[name].js',

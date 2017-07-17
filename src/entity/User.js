@@ -16,6 +16,9 @@ class User{
 			case Constant.RESET_SC:
                 requests=resetSecurityCode(para);
 				break;
+            case Constant.VERIFY:
+                requests=verify(para);
+                break;
 		}
 		return requests;
 	}

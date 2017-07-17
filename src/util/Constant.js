@@ -21,6 +21,7 @@ export const Constant={
     UPDATE :'update',
     DETAIL :'detail',
     VALIDATE :'validate',
+    VERIFY :'verify',
     ACTIVATE :'activate',
     RESET_SC:'resetSecurityCode',
     
@@ -28,7 +29,7 @@ export const Constant={
     TOPIC_COMPANY_ID :'f4035320-be1f-4e71-8005-2363a6f074ee/',
     FILE :'file/',
     DATABASE :'database/',
-    NEO4J :'neo4j/',
+    NEO4J :'neo4j',
     
     
     MEMBER_CREATE :'member/create/',

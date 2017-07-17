@@ -1,8 +1,6 @@
 import awsIot from 'aws-iot-device-sdk';
 import path from 'path';
 
-console.log('~~~~',path.resolve(__dirname,'cert/rootCA.pem'));
-
 const device = awsIot.device({
     host:'a3ihzykgqzp1ol.iot.us-west-2.amazonaws.com'
     ,clientId:'ememberBackend' //a26e840b7d3814770c4f232ceea8d4d8ec31e20a20da56759a39beb5a2878f8b

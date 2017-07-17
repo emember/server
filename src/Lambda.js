@@ -17,6 +17,16 @@ exports.handler = (event, context, callback) => {
         }
     });
 
+    /** server should publish message to data manager **/
+    // let requests = EntityManager.callEntityFunc(entity, func, para);
+    //
+    // requests.forEach(r=>{
+    //     AwsIotUtil.publish(r.topic, r.payload);
+    // });
+
+    /** data manager will run query and publish response accordingly*/
+
+
     // var para =JSON.parse(event.body);
     // var entity;
     // entity=require('./'+para.entity);

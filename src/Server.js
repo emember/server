@@ -5,10 +5,10 @@
 import {AppUtil} from 'util/AppUtil';
 import {AwsIotUtil} from 'util/AwsIotUtil';
 import {Constant} from  'util/Constant';
-import Neo4jHandler from 'util/Neo4jHandler'
+import {DataManager} from 'dataManager/DataManager'
 import {EntityManager}from 'entity/EntityManager'
 
-console.log('~~~~starting server');
+console.log('~~~~starting server~~~~~~~~~~');
 
 function  msgCallback(topic, payload) {
     let appId=AppUtil.getLevelNTopic(topic, Constant.APP_ID_IDX);
@@ -22,18 +22,18 @@ function  msgCallback(topic, payload) {
     para.entity=entity;
     para.func=func;
 
-    /** server should publish message to data manager **/
     let requests = EntityManager.callEntityFunc(entity, func, para);
+    // console.log(requests);
 
     requests.forEach(r=>{
-        AwsIotUtil.publish(r.topic, r.payload);
+        DataManager.process(r);
     });
-    console.log(requests);
+}
 
-    /**mimic what should be done by data manager */
+function runQuery() {
 
 }
 
-msgCallback('f4035320-be1f-4e71-8005-2363a6f074ee/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/in/user/verify',{"securityCode":"entry he is jgzgjzu at"});
-// AwsIotUtil.init(msgCallback);
+AwsIotUtil.init(msgCallback);
 
+// msgCallback('f4035320-be1f-4e71-8005-2363a6f074ee/in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/verify',{"securityCode":"333"});
