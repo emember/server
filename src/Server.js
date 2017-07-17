@@ -18,7 +18,7 @@ function  msgCallback(topic, payload) {
 	let para=payload;
     para.companyId=Constant.COMPANY_ID;
 
-    para.ticketNo=AppUtil.makeTopic([Constant.OUT,appId,entity,func]);
+    para.ticketNo=AppUtil.makeTopic([Constant.COMPANY_ID, Constant.OUT, appId, entity,func]);
     para.entity=entity;
     para.func=func;
 
@@ -28,10 +28,6 @@ function  msgCallback(topic, payload) {
     requests.forEach(r=>{
         DataManager.process(r);
     });
-}
-
-function runQuery() {
-
 }
 
 AwsIotUtil.init(msgCallback);

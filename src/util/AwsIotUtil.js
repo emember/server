@@ -17,7 +17,7 @@ class AwsIotUtil
     static init(msgb){
         device.on('connect',()=>{
             console.log('connect');
-            device.subscribe('f4035320-be1f-4e71-8005-2363a6f074ee/#');
+            device.subscribe('f4035320-be1f-4e71-8005-2363a6f074ee/in/#');
         });
 
         device.on('close', function() {
@@ -40,12 +40,12 @@ class AwsIotUtil
             console.log('~~~~~message received~~~');
             console.log('~~topic~~~',topic);
             console.log('~~~data~~~~',payload.toString())
-            msgb(topic,payload);
+            msgb(topic, JSON.parse(payload.toString()));
         });
     }
 
     static publish(topic, payload){
-
+        device.publish(topic, JSON.stringify(payload));
     }
 
     static subscribe(){
