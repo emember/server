@@ -2,22 +2,42 @@ import {Constant} from 'util/Constant';
 
 class User{
 	 execute(action, para){
+	 	let requests=[];
 		switch(action){
 			case Constant.CREATE:
-				create(para);
+                requests=create(para);
 				break;
 			case Constant.VALIDATE:
-				validate(para);
+                requests=validate(para);
 				break;
 			case Constant.ACTIVATE:
-				activate(para);
+                requests=activate(para);
 				break;
 			case Constant.RESET_SC:
-				resetSecurityCode(para);
+                requests=resetSecurityCode(para);
 				break;
 		}
+		return requests;
 	}
 }
+
+function verify(para, callback){
+    let requests=[];
+	var query ="match (c:company {companyId:{companyId}})\
+	match (c) -[r:hasUser]->(u:user {securityCode:{securityCode}}) \
+	return {userId:u.userId}";
+
+    requests.push({
+		topic:Constant.NEO4J,
+		payload:{
+			ticketNo:para.ticketNo,
+			query:query,
+			para:para
+		}
+	});
+    return requests;
+}
+
 
 function resetSecurityCode(para) {
 	console.log('~~func called~~',para);

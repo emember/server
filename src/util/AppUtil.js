@@ -1,19 +1,15 @@
-import {User} from 'entity/User';
-
 class AppUtil{
 	static getLevelNTopic(topic, n){
 		let levels = topic.split('/');
 		return levels[n];
 	}
 
-	static callEntityFunc(entityStr, func, para){
-		let obj;
-		switch (entityStr){
-			case 'user':
-                obj = new User();
+	static makeTopic(array){
+		let topic=array[0];
+		for(let i=0;i<array.length;i++){
+            topic+="/"+array[i];
 		}
-
-		obj.execute(func,para);
+		return topic;
 	}
 }
 

@@ -2,9 +2,11 @@
 export const Constant={
     DEBUG:true,
     COMPANY_ID :'f4035320-be1f-4e71-8005-2363a6f074ee',
-    TOKEN_IDX:1,
-    ENTITY_IDX:2,
-    FUNC_IDX:3,
+    APP_ID_IDX:2,
+    ENTITY_IDX:3,
+    FUNC_IDX:4,
+    IN:'in',
+    OUT:'out',
     
     /** entities **/
     MEMBER:'member',
@@ -26,6 +28,7 @@ export const Constant={
     TOPIC_COMPANY_ID :'f4035320-be1f-4e71-8005-2363a6f074ee/',
     FILE :'file/',
     DATABASE :'database/',
+    NEO4J :'neo4j/',
     
     
     MEMBER_CREATE :'member/create/',
