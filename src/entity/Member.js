@@ -20,11 +20,9 @@ function create(para){
 	];
 	
 	var fileTopic=Constant.FILE+Constant.CREATE;
-	dataQFitting.publish(fileTopic, JSON.stringify(files));
 
 	para.qrPic=qrPicFilename;
 	para.profilePic=profilePicFilename;
-	para.companyId=Constant.COMPANY_ID;
 
 	var query="match (c:company {companyId:{companyId}}) \
 				merge (e:email {email: {email}}) \
@@ -33,13 +31,31 @@ function create(para){
 				merge (c)-[cmr:hasMember ]->(m) \
 				merge (e)-[emr:ownMember]->(m)";
 
-	var dbTopic=Constant.DATABASE;
-	dataQFitting.publish(dbTopic, JSON.stringify({query:query, para:para}));				
+    let requests=[];
+    requests.push({
+        topic:Constant.NEO4J,
+        payload:{
+            ticketNo:para.ticketNo,
+            query:query,
+            para:para
+        }
+    });
+
+    requests.push({
+        topic:Constant.S3,
+        payload:{
+            ticketNo:para.ticketNo,
+            action:save,
+            para:files
+        }
+    });
+
+    return requests;
+
 }
 
-module.exports = {
-	execute:execute
-};
+export {Member}
+
 
 // router.post('/info', function(req, res, next) {
 // 	var query='MATCH (m:member {qr_code:{qr_code}})  \

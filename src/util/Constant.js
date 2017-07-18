@@ -26,10 +26,8 @@ export const Constant={
     SEND_SC:'sendSecurityCode',
     SET_PIN :'setPin',
 
-    /** topics **/
-    TOPIC_COMPANY_ID :'f4035320-be1f-4e71-8005-2363a6f074ee/',
-    FILE :'file/',
-    DATABASE :'database/',
+    /** data manager topics **/
+    S3 :'s3',
     NEO4J :'neo4j',
     
     
