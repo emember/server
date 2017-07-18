@@ -17,12 +17,29 @@ class User{
             case Constant.VERIFY:
                 requests=verify(para);
                 break;
-            case Constant.VALIDATE:
-                requests=login(para);
+            case Constant.SET_PIN:
+                requests=setPin(para);
                 break;
 		}
 		return requests;
 	}
+}
+
+function setPin(para) {
+    var query ="match (c:company {companyId:{companyId}})\
+	match (c) -[r:hasUser]->(u:user {email:{email}}) \
+	set u.pin={pin}";
+
+    let requests=[];
+    requests.push({
+        topic:Constant.NEO4J,
+        payload:{
+            ticketNo:para.ticketNo,
+            query:query,
+            para:para
+        }
+    });
+    return requests;
 }
 
 function verify(para){

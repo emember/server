@@ -11,7 +11,7 @@ function sendResponse(topic, result) {
 }
 
 class DataManager{
-    static process(req){
+    static processDataReq(req){
         console.log('~~~~~~~~~dm called~~~~~~~~~~');
         switch (req.topic){
             case Constant.NEO4J:

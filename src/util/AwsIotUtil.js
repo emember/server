@@ -37,9 +37,6 @@ class AwsIotUtil
         });
 
         device.on('message', function(topic, payload) {
-            console.log('~~~~~message received~~~');
-            console.log('~~topic~~~',topic);
-            console.log('~~~data~~~~',payload.toString())
             msgb(topic, JSON.parse(payload.toString()));
         });
     }

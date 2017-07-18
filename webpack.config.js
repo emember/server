@@ -21,6 +21,7 @@ module.exports={
         // Main:'./src/Lambda.js',
 
         Server:'./src/Server.js',
+        MessageHandlerTest:'./test/MessageHandlerTest.js',
 
         // ConstantTest:'./test/ConstantTest.js'
     },
