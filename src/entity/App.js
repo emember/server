@@ -8,7 +8,7 @@ class App{
             case Constant.ACTIVATE:
                 activate(para);
                 break;
-            case Constant.RESET_SC:
+            case Constant.SEND_SC:
                 resetSecurityCode(para);
                 break;
         }

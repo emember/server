@@ -11,6 +11,18 @@ class AppUtil{
 		}
 		return topic;
 	}
+
+	static makeDataReq(topic, query, para){
+		let request={
+            topic:topic,
+            payload:{
+                ticketNo:para.ticketNo,
+                query:query,
+                para:para
+            }
+		}
+		return request;
+	}
 }
 
 export {AppUtil};

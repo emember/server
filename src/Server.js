@@ -18,14 +18,13 @@ function  msgCallback(topic, payload) {
 	let para=payload;
     para.companyId=Constant.COMPANY_ID;
 
-    para.ticketNo=AppUtil.makeTopic([Constant.COMPANY_ID, Constant.OUT, appId, entity,func]);
-    para.entity=entity;
-    para.func=func;
+    let ticketNo=AppUtil.makeTopic([Constant.COMPANY_ID, Constant.OUT, appId, entity,func]);
+    para.ticketNo=ticketNo;
 
-    let requests = EntityManager.callEntityFunc(entity, func, para);
+    let dataReqs = EntityManager.callEntityFunc(entity, func, para);
     // console.log(requests);
 
-    requests.forEach(r=>{
+    dataReqs.forEach(r=>{
         DataManager.process(r);
     });
 }
@@ -33,3 +32,5 @@ function  msgCallback(topic, payload) {
 AwsIotUtil.init(msgCallback);
 
 // msgCallback('f4035320-be1f-4e71-8005-2363a6f074ee/in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/verify',{"securityCode":"333"});
+// msgCallback('f4035320-be1f-4e71-8005-2363a6f074ee/in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/login',{"email":"a@b.com","pin":"1234"});
+// msgCallback('f4035320-be1f-4e71-8005-2363a6f074ee/in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/sendSecurityCode',{"email":"a@b.com"});

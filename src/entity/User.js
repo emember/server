@@ -1,4 +1,5 @@
 import {Constant} from 'util/Constant';
+import {AppUtil} from 'util/AppUtil';
 
 class User{
 	 execute(action, para){
@@ -7,29 +8,29 @@ class User{
 			case Constant.CREATE:
                 requests=create(para);
 				break;
-			case Constant.VALIDATE:
-                requests=validate(para);
+			case Constant.LOGIN:
+                requests=login(para);
 				break;
-			case Constant.ACTIVATE:
-                requests=activate(para);
-				break;
-			case Constant.RESET_SC:
-                requests=resetSecurityCode(para);
+			case Constant.SEND_SC:
+                requests=sendSecurityCode(para);
 				break;
             case Constant.VERIFY:
                 requests=verify(para);
+                break;
+            case Constant.VALIDATE:
+                requests=login(para);
                 break;
 		}
 		return requests;
 	}
 }
 
-function verify(para, callback){
-    let requests=[];
+function verify(para){
 	var query ="match (c:company {companyId:{companyId}})\
-	match (c) -[r:hasUser]->(u:user {securityCode:{securityCode}}) \
-	return {userId:u.userId}";
+	match (c) -[r:hasUser]->(u:user {email:{email}, securityCode:{securityCode}}) \
+	return {userId:u.email}";
 
+    let requests=[];
     requests.push({
 		topic:Constant.NEO4J,
 		payload:{
@@ -42,11 +43,23 @@ function verify(para, callback){
 }
 
 
-function resetSecurityCode(para) {
-	console.log('~~func called~~',para);
+function sendSecurityCode(para) {
     var query="match (c:company {companyId:{companyId}}) \
-				match(c)-[r:hasUser]->(u:user {token:{token}}) \
-				set u.securityCode='369' ";
+				match(c)-[r:hasUser]->(u:user {email:{email}}) \
+				set u.securityCode='888000' ";
+    //need to email out new securityCode to user
+
+    let requests=[];
+    requests.push({
+        topic:Constant.NEO4J,
+        payload:{
+            ticketNo:para.ticketNo,
+            query:query,
+            para:para
+        }
+    });
+    return requests;
+
 }
 
 function create(para){
@@ -56,12 +69,21 @@ function create(para){
 				return u";
 }
 
-function validate(para) {
-
+function login(para) {
     var query = "match (c:company {companyId:{companyId}})\
-	match (c) -[r:hasAppUser]->(u:appUser {appId:{appId}, appKey:{appKey}}) \
-	set u.token={token} \
-	return count(u)>0";
+	match (c) -[r:hasUser]->(u:user {email:{email}, pin:{pin}}) \
+	return {userId:u.email}";
+
+    let requests=[];
+    requests.push({
+        topic:Constant.NEO4J,
+        payload:{
+            ticketNo:para.ticketNo,
+            query:query,
+            para:para
+        }
+    });
+    return requests;
 }
 
 function activate(para) {

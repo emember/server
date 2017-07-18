@@ -4,7 +4,7 @@ const db = new neo4j('http://35.164.176.15:443','Authorization:Basic bmVvNGo6THl
 
 class Neo4jHandler{
     static runQuery(req, cb){
-        console.log('~~~~run query~~~~',req);
+        console.log('~~~~neo4j run query~~~~',req);
         db.cypherQuery(
             req.query,
             req.para,

@@ -8,7 +8,7 @@ class EntityManager{
                 obj = new User();
 		}
 
-		return obj.execute(func,para);
+		return obj.execute(func, para);
 	}
 }
 

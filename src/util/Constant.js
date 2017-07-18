@@ -20,10 +20,10 @@ export const Constant={
     CREATE :'create',
     UPDATE :'update',
     DETAIL :'detail',
-    VALIDATE :'validate',
+    LOGIN :'login',
     VERIFY :'verify',
     ACTIVATE :'activate',
-    RESET_SC:'resetSecurityCode',
+    SEND_SC:'sendSecurityCode',
     
     /** topics **/
     TOPIC_COMPANY_ID :'f4035320-be1f-4e71-8005-2363a6f074ee/',
