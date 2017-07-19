@@ -3,7 +3,7 @@ import {Member} from './Member';
 
 class EntityManager{
 	static callEntityFunc(entityStr, func, para){
-		let obj;
+        let obj;
 		switch (entityStr){
 			case 'user':
                 obj = new User();
@@ -12,7 +12,7 @@ class EntityManager{
                 obj = new Member();
 				break;
 		}
-
+        console.log('~~~~~entity func called ~~~',entityStr, func, obj);
 		return obj.execute(func, para);
 	}
 }

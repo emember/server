@@ -27,6 +27,7 @@ export const Constant={
     SET_PIN :'setPin',
 
     /** data manager topics **/
+    DATA_MANAGER:'dataManager',
     S3 :'s3',
     NEO4J :'neo4j',
     
@@ -37,6 +38,6 @@ export const Constant={
     MEMBER_FIND:'member/find/',
     
     COMPANY_DETAIL : 'company/detail/',
-    COMPANY_SAVE : 'company/save/',
+    COMPANY_SAVE : 'company/process/',
     VISIT_ADD :'visit/add/'
 }

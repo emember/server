@@ -2,8 +2,8 @@ import neo4j from 'node-neo4j';
 
 const db = new neo4j('http://35.164.176.15:443','Authorization:Basic bmVvNGo6THliMzMwMDExIQ==');
 
-class Neo4jHandler{
-    static runQuery(req, cb){
+class Neo4jManager{
+    static process(req, cb){
         console.log('~~~~neo4j run query~~~~',req);
         db.cypherQuery(
             req.query,
@@ -14,4 +14,4 @@ class Neo4jHandler{
     }
 }
 
-export {Neo4jHandler}
+export {Neo4jManager}

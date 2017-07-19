@@ -1,39 +1,44 @@
 import {Constant} from 'util/Constant';
+import {AppUtil} from 'util/AppUtil';
 
 class Member{
 	execute(action, para){
+        let dataReqs=[];
 		switch(action){
 			case Constant.CREATE:
-				create(para);
+                dataReqs=create(para);
 				break;
 		}
+		return dataReqs;
 	}
 }
 
 function create(para){
 	var qrPicFilename=para.qrCode+"_qr.jpg";
-	var profilePicFilename=para.qrCode+"_profile.jpg";	
 
 	var files =[
-		{filename:Constant.TOPIC_COMPANY_ID+para.qrCode+"_qr.jpg",data:para.qrPic},
-		{filename:Constant.TOPIC_COMPANY_ID+para.qrCode+"_profile.jpg",data:para.profilePic},
+		{filename:para.companyId+'/'+qrPicFilename,data:para.qrPic}
 	];
-	
-	var fileTopic=Constant.FILE+Constant.CREATE;
 
-	para.qrPic=qrPicFilename;
-	para.profilePic=profilePicFilename;
+	var profilePicFilename=null;
+	if(para.profilePic){
+        var profilePicFilename=para.qrCode+"_profile.jpg";
+	    files.push({filename:para.companyId+'/'+profilePicFilename,data:para.profilePic});
+    }
+
+    para.qrPic=qrPicFilename;
+    para.profilePic=profilePicFilename;
 
 	var query="match (c:company {companyId:{companyId}}) \
-				merge (e:email {email: {email}}) \
-				merge (m:member {qrCode:{qrCode}})\
+				merge (a:emAccount {email: {email}}) \
+				merge (m:membership {qrCode:{qrCode}})\
 				set m.qrPic={qrPic}, m.profilePic={profilePic}, m.firstname={firstname}, m.lastname={lastname}, m.phone={phone}, m.dateOfBirth={dateOfBirth}\
-				merge (c)-[cmr:hasMember ]->(m) \
-				merge (e)-[emr:ownMember]->(m)";
+				merge (m)-[mcr:issuedBy ]->(c) \
+				merge (m)-[mar:belongTo]->(a)";
 
-    let requests=[];
-    requests.push({
-        topic:Constant.NEO4J,
+    let dataReqs=[];
+    dataReqs.push({
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
         payload:{
             ticketNo:para.ticketNo,
             query:query,
@@ -41,16 +46,12 @@ function create(para){
         }
     });
 
-    requests.push({
-        topic:Constant.S3,
-        payload:{
-            ticketNo:para.ticketNo,
-            action:save,
-            para:files
-        }
+    dataReqs.push({
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.S3]),
+        payload:files
     });
 
-    return requests;
+    return dataReqs;
 
 }
 
@@ -116,12 +117,12 @@ export {Member}
 // 	var para =req.para;
 
 // 	var qr_pic_file=para.company_id+'/'+para.qr_code+"_qr.jpg";
-// 	image.save(qr_pic_file, para.qr_pic);
+// 	image.process(qr_pic_file, para.qr_pic);
 // 	para.qr_pic=qr_pic_file;
 	
 
 // 	var profile_pic_file=para.company_id+'/'+ para.qr_code+"_profile.jpg";	
-// 	image.save(profile_pic_file, para.profile_pic);
+// 	image.process(profile_pic_file, para.profile_pic);
 // 	para.profile_pic=profile_pic_file;
 
 // 	var query="match (c:company {company_id:{company_id}}) \
@@ -147,7 +148,7 @@ export {Member}
 
 // 	if(para.update_profile=='1'){
 // 		var profile_pic_file=para.company_id+'\\'+ para.qr_code+"_profile.jpg";	
-// 		image.save(profile_pic_file, para.profile_pic);
+// 		image.process(profile_pic_file, para.profile_pic);
 // 		para.profile_pic=profile_pic_file;		
 // 	}
 	

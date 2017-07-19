@@ -21,7 +21,7 @@ class MessageHandler{
         para.ticketNo=ticketNo;
 
         let dataReqs = EntityManager.callEntityFunc(entity, func, para);
-        // console.log(requests);
+        // console.log('~~data reqs~~~',dataReqs);
 
         dataReqs.forEach(r=>{
             DataManager.processDataReq(r);
