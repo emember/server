@@ -5,6 +5,7 @@ export const Constant={
     APP_ID_IDX:2,
     ENTITY_IDX:3,
     FUNC_IDX:4,
+    MESSAGE_TYPE:5,
     IN:'in',
     OUT:'out',
     
@@ -30,7 +31,11 @@ export const Constant={
     DATA_MANAGER:'dataManager',
     S3 :'s3',
     NEO4J :'neo4j',
-    
+    ONEWAY:'oneway',
+    RETURN:'return',
+
+
+    /**********old code**************/
     
     MEMBER_CREATE :'member/create/',
     MEMBER_INFO:'member/info/',

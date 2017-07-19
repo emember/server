@@ -32,9 +32,9 @@ function setPin(para) {
 
     let requests=[];
     requests.push({
-        topic:Constant.NEO4J,
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
         payload:{
-            ticketNo:para.ticketNo,
+            resTopic:para.resTopic,
             query:query,
             para:para
         }
@@ -49,9 +49,9 @@ function verify(para){
 
     let requests=[];
     requests.push({
-		topic:Constant.NEO4J,
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
 		payload:{
-			ticketNo:para.ticketNo,
+			resTopic:para.resTopic,
 			query:query,
 			para:para
 		}
@@ -68,9 +68,9 @@ function sendSecurityCode(para) {
 
     let requests=[];
     requests.push({
-        topic:Constant.NEO4J,
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
         payload:{
-            ticketNo:para.ticketNo,
+            resTopic:para.resTopic,
             query:query,
             para:para
         }
@@ -93,9 +93,9 @@ function login(para) {
 
     let requests=[];
     requests.push({
-        topic:Constant.NEO4J,
+        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
         payload:{
-            ticketNo:para.ticketNo,
+            resTopic:para.resTopic,
             query:query,
             para:para
         }

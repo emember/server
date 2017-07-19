@@ -40,7 +40,7 @@ function create(para){
     dataReqs.push({
         topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
         payload:{
-            ticketNo:para.ticketNo,
+            resTopic:para.resTopic,
             query:query,
             para:para
         }
