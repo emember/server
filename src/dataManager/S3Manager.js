@@ -4,8 +4,8 @@ class S3Manager{
         var AWS = require('aws-sdk');
 
         var awsConfig = new AWS.Config({
-            accessKeyId: 'AKIAIJHH4JH7GYDQ4F3Q',
-            secretAccessKey:'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',
+            accessKeyId: 'AKIAISXBE5UFZAO447YQ',
+            secretAccessKey:'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',
             region: 'us-west-2'
         });
 

@@ -17,7 +17,7 @@ class AwsIotUtil
     static init(msgb){
         device.on('connect',()=>{
             console.log('connect');
-            device.subscribe('f4035320-be1f-4e71-8005-2363a6f074ee/in/#');
+            device.subscribe('in/#');
         });
 
         device.on('close', function() {

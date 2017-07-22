@@ -26,8 +26,7 @@ class User{
 }
 
 function setPin(para) {
-    var query ="match (c:company {companyId:{companyId}})\
-	match (c) -[r:hasUser]->(u:user {email:{email}}) \
+    var query ="match (u:user {email:{email}}) \
 	set u.pin={pin}";
 
     let requests=[];
@@ -43,8 +42,7 @@ function setPin(para) {
 }
 
 function verify(para){
-	var query ="match (c:company {companyId:{companyId}})\
-	match (c) -[r:hasUser]->(u:user {email:{email}, securityCode:{securityCode}}) \
+	var query ="match (u:user {email:{email}, securityCode:{securityCode}}) \
 	return {userId:u.email}";
 
     let requests=[];
@@ -61,8 +59,7 @@ function verify(para){
 
 
 function sendSecurityCode(para) {
-    var query="match (c:company {companyId:{companyId}}) \
-				match(c)-[r:hasUser]->(u:user {email:{email}}) \
+    var query="match (u:user {email:{email}}) \
 				set u.securityCode='888000' ";
     //need to email out new securityCode to user
 
@@ -80,15 +77,13 @@ function sendSecurityCode(para) {
 }
 
 function create(para){
-	var query="match (c:company {companyId:{companyId}}) \
-				create(c)-[r:hasAppUser]->(u:appUser) \
+	var query="create (u:user) \
 				set u.securityCode='888' \
 				return u";
 }
 
 function login(para) {
-    var query = "match (c:company {companyId:{companyId}})\
-	match (c) -[r:hasUser]->(u:user {email:{email}, pin:{pin}}) \
+    var query = "match (u:user {email:{email}, pin:{pin}}) \
 	return {userId:u.email}";
 
     let requests=[];

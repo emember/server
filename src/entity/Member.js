@@ -17,24 +17,25 @@ function create(para){
 	var qrPicFilename=para.qrCode+"_qr.jpg";
 
 	var files =[
-		{filename:para.companyId+'/'+qrPicFilename,data:para.qrPic}
+		{filename:para.qrCode+'/'+qrPicFilename,data:para.qrPic}
 	];
 
 	var profilePicFilename=null;
 	if(para.profilePic){
         var profilePicFilename=para.qrCode+"_profile.jpg";
-	    files.push({filename:para.companyId+'/'+profilePicFilename,data:para.profilePic});
+	    files.push({filename:para.qrCode+'/'+profilePicFilename,data:para.profilePic});
     }
 
     para.qrPic=qrPicFilename;
     para.profilePic=profilePicFilename;
 
-	var query="match (c:company {companyId:{companyId}}) \
-				merge (a:emAccount {email: {email}}) \
-				merge (m:membership {qrCode:{qrCode}})\
-				set m.qrPic={qrPic}, m.profilePic={profilePic}, m.firstname={firstname}, m.lastname={lastname}, m.phone={phone}, m.dateOfBirth={dateOfBirth}\
-				merge (m)-[mcr:issuedBy ]->(c) \
-				merge (m)-[mar:belongTo]->(a)";
+	var query="merge (m:member {email: {email}}) \
+				set m.qrCode={qrCode}, m.qrPic={qrPic}, \
+				    m.profilePic={profilePic}, \
+				    m.firstname={firstname}, \
+				    m.lastname={lastname}, \
+				    m.phone={phone}, \
+				    m.dateOfBirth={dateOfBirth}";
 
     let dataReqs=[];
     dataReqs.push({

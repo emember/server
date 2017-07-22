@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "aws-iot-device-sdk": "^2.0.1",
+    "aws-sdk": "^2.86.0",
     "moment": "^2.18.1",
     "mqtt": "^2.5.0",
     "nconf": "^0.8.4",
