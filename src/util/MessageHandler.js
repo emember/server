@@ -23,13 +23,7 @@ class MessageHandler{
         }
 
         //work out data request from entity
-        let dataReqs = EntityManager.callEntityFunc(entity, func, para);
-        // console.log('~~data reqs~~~',dataReqs);
-
-        //process data request
-        dataReqs.forEach(r=>{
-            DataManager.processDataReq(r);
-        });
+        EntityManager.callEntityFunc(entity, func, para);
     }
 }
 

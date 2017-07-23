@@ -20,7 +20,7 @@ export const Constant={
     /** actions **/
     CREATE :'create',
     UPDATE :'update',
-    DETAIL :'detail',
+    INFO :'info',
     LOGIN :'login',
     VERIFY :'verify',
     ACTIVATE :'activate',

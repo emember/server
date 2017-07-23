@@ -1,27 +1,27 @@
 import {Constant} from 'util/Constant';
 import {AppUtil} from 'util/AppUtil';
+import {Neo4jManager} from 'dataManager/Neo4jManager';
+
 
 class User{
 	 execute(action, para){
-	 	let requests=[];
 		switch(action){
 			case Constant.CREATE:
-                requests=create(para);
+                create(para);
 				break;
 			case Constant.LOGIN:
-                requests=login(para);
+                login(para);
 				break;
 			case Constant.SEND_SC:
-                requests=sendSecurityCode(para);
+                sendSecurityCode(para);
 				break;
             case Constant.VERIFY:
-                requests=verify(para);
+                verify(para);
                 break;
             case Constant.SET_PIN:
-                requests=setPin(para);
+                setPin(para);
                 break;
 		}
-		return requests;
 	}
 }
 
@@ -29,32 +29,14 @@ function setPin(para) {
     var query ="match (u:user {email:{email}}) \
 	set u.pin={pin}";
 
-    let requests=[];
-    requests.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
-        payload:{
-            resTopic:para.resTopic,
-            query:query,
-            para:para
-        }
-    });
-    return requests;
+    Neo4jManager.process(query, para);
 }
 
 function verify(para){
 	var query ="match (u:user {email:{email}, securityCode:{securityCode}}) \
 	return {userId:u.email}";
 
-    let requests=[];
-    requests.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
-		payload:{
-			resTopic:para.resTopic,
-			query:query,
-			para:para
-		}
-	});
-    return requests;
+    Neo4jManager.process(query, para);
 }
 
 
@@ -63,17 +45,7 @@ function sendSecurityCode(para) {
 				set u.securityCode='888000' ";
     //need to email out new securityCode to user
 
-    let requests=[];
-    requests.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
-        payload:{
-            resTopic:para.resTopic,
-            query:query,
-            para:para
-        }
-    });
-    return requests;
-
+    Neo4jManager.process(query, para);
 }
 
 function create(para){
@@ -86,16 +58,7 @@ function login(para) {
     var query = "match (u:user {email:{email}, pin:{pin}}) \
 	return {userId:u.email}";
 
-    let requests=[];
-    requests.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
-        payload:{
-            resTopic:para.resTopic,
-            query:query,
-            para:para
-        }
-    });
-    return requests;
+    Neo4jManager.process(query, para);
 }
 
 function activate(para) {

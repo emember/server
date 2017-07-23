@@ -6,8 +6,8 @@ let msg;
 // topic='in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/verify';
 // msg={"securityCode":"333"}
 
-topic='in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/login';
-msg={"email":"a@b.com","pin":"1234"}
+// topic='in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/login';
+// msg={"email":"a@b.com","pin":"1234"}
 
 // topic='in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/user/sendSecurityCode';
 // msg={"email":"a@b.com"}
@@ -28,5 +28,8 @@ msg={"email":"a@b.com","pin":"1234"}
 //     "lastname":"aaa",
 //     "phone":"",
 //     "profilePic":"1231313"};
+
+topic= 'in/a383490d6831193e0f691d755f990366bcda5f3ed4317d7e9343e2613a262748/member/info/return';
+msg={"qrCode":"6db129e2-f534-491c-9fc3-ef46c9135e88"};
 
 MessageHandler.process(topic, msg);
