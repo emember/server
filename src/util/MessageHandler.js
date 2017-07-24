@@ -7,8 +7,8 @@ import {EntityManager}from 'entity/EntityManager'
 class MessageHandler{
     static process(topic, payload){
         console.log('~~~~~message received~~~');
-        console.log('~~topic~~~',topic);
-        console.log('~~~data~~~~',payload);
+        console.log('topic:',topic);
+        console.log('data:',payload);
 
         let appId=AppUtil.getLevelNTopic(topic, Constant.APP_ID_IDX);
         let entity =AppUtil.getLevelNTopic(topic, Constant.ENTITY_IDX);
@@ -25,7 +25,7 @@ class MessageHandler{
 
         //work out data request from entity
         let dataReqs = EntityManager.callEntityFunc(entity, func, para);
-        console.log('~~data reqs~~~',dataReqs);
+        // console.log('~~data reqs~~~',dataReqs);
 
         //process data request
         dataReqs.forEach(r=>{

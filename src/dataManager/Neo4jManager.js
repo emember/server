@@ -4,9 +4,9 @@ import {AwsIotUtil} from 'util/AwsIotUtil';
 const db = new neo4j('http://35.164.176.15:443','Authorization:Basic bmVvNGo6THliMzMwMDExIQ==');
 
 function sendResponse(topic, result) {
-    console.log('~~~neo4j cb topic~~',topic);
-    console.log('~~~neo4j cb msg',result);
-    
+    console.log('neo4j cb topic~~',topic);
+    console.log('neo4j cb msg~~',result);
+
     AwsIotUtil.publish(topic, result);
 }
 

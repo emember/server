@@ -4,8 +4,8 @@ class S3Manager{
         var AWS = require('aws-sdk');
 
         var awsConfig = new AWS.Config({
-            accessKeyId: 'AKIAIJHH4JH7GYDQ4F3Q',
-            secretAccessKey:'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',
+            accessKeyId: 'AKIAISXBE5UFZAO447YQ',
+            secretAccessKey:'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',
             region: 'us-west-2'
         });
 
@@ -24,9 +24,9 @@ class S3Manager{
 
             s3.putObject(options, function(err,data){
                 if(err){
-                    console.log('~~s3 error~',err);
+                    console.log('s3 error~',err);
                 }else{
-                    console.log('~~s3 success~'+date.toTimeString());
+                    console.log('s3 success~'+date.toTimeString());
                 }
             });
         });
