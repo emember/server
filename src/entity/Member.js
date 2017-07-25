@@ -12,6 +12,9 @@ class Member{
             case Constant.INFO:
                 info(para);
                 break;
+            case Constant.SAVE:
+                save(para);
+                break;
 		}
 	}
 }
@@ -52,10 +55,30 @@ function info(para){
 				    firstname:m.firstname, \
 				    lastname:m.lastname, \
 				    phone:m.phone, \
-				    dateOfBirth:m.dateOfBirth \
+				    dateOfBirth:m.dateOfBirth, \
+				    qrCode:m.qrCode \
 				 }";
 
     Neo4jManager.process(query, para);
+}
+
+function save(para) {
+	let files =[];
+
+    if(para.profilePicObj){
+        files.push({filename:para.profilePic,data:para.profilePicObj});
+    }
+
+    S3Manager.process(files);
+
+    var query="merge (m:member {qrCode: {qrCode}}) \
+				set m.firstname={firstname}, \
+				    m.lastname={lastname}, \
+				    m.phone={phone}, \
+				    m.discount={discount}, \
+				    m.dateOfBirth={dateOfBirth}";
+    Neo4jManager.process(query, para);
+
 }
 
 export {Member}
