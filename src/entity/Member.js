@@ -12,8 +12,8 @@ class Member{
             case Constant.INFO:
                 info(para);
                 break;
-            case Constant.SAVE:
-                save(para);
+            case Constant.UPDATE:
+                update(para);
                 break;
 		}
 	}
@@ -38,7 +38,8 @@ function create(para){
     para.profilePic=profilePicFilename;
 
 	var query="merge (m:member {email: {email}}) \
-				set m.qrCode={qrCode}, m.qrPic={qrPic}, \
+				set m.qrCode={qrCode}, \
+				    m.qrPic={qrPic}, \
 				    m.profilePic={profilePic}, \
 				    m.firstname={firstname}, \
 				    m.lastname={lastname}, \
@@ -51,25 +52,26 @@ function create(para){
 function info(para){
     var query="match (m:member {qrCode: {qrCode}}) \
 				return { \
-				    profilePic:m.profilePic, \
+				    qrCode:m.qrCode, \
+				    email:m.email, \
 				    firstname:m.firstname, \
 				    lastname:m.lastname, \
 				    phone:m.phone, \
-				    dateOfBirth:m.dateOfBirth, \
-				    qrCode:m.qrCode \
+				    profilePic:m.profilePic, \
+				    dateOfBirth:m.dateOfBirth \
 				 }";
 
     Neo4jManager.process(query, para);
 }
 
-function save(para) {
+function update(para) {
 	let files =[];
 
     if(para.profilePicObj){
         files.push({filename:para.profilePic,data:para.profilePicObj});
     }
 
-    S3Manager.process(files);
+    if(files) S3Manager.process(files);
 
     var query="merge (m:member {qrCode: {qrCode}}) \
 				set m.firstname={firstname}, \
