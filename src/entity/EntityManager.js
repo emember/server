@@ -13,7 +13,7 @@ class EntityManager{
 				break;
 		}
         console.log('~~~~~entity func called ~~~',entityStr, func, obj);
-		return obj.execute(func, para);
+		obj.execute(func, para);
 	}
 }
 

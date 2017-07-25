@@ -1,15 +1,18 @@
 import {Constant} from 'util/Constant';
 import {AppUtil} from 'util/AppUtil';
+import {Neo4jManager} from 'dataManager/Neo4jManager';
+import {S3Manager} from 'dataManager/S3Manager';
 
 class Member{
 	execute(action, para){
-        let dataReqs=[];
 		switch(action){
 			case Constant.CREATE:
-                dataReqs=create(para);
+                create(para);
 				break;
+            case Constant.INFO:
+                info(para);
+                break;
 		}
-		return dataReqs;
 	}
 }
 
@@ -17,42 +20,42 @@ function create(para){
 	var qrPicFilename=para.qrCode+"_qr.jpg";
 
 	var files =[
-		{filename:para.companyId+'/'+qrPicFilename,data:para.qrPic}
+		{filename:qrPicFilename,data:para.qrPic}
 	];
 
 	var profilePicFilename=null;
 	if(para.profilePic){
         var profilePicFilename=para.qrCode+"_profile.jpg";
-	    files.push({filename:para.companyId+'/'+profilePicFilename,data:para.profilePic});
+	    files.push({filename:profilePicFilename,data:para.profilePic});
     }
+
+    S3Manager.process(files);
 
     para.qrPic=qrPicFilename;
     para.profilePic=profilePicFilename;
 
-	var query="match (c:company {companyId:{companyId}}) \
-				merge (a:emAccount {email: {email}}) \
-				merge (m:membership {qrCode:{qrCode}})\
-				set m.qrPic={qrPic}, m.profilePic={profilePic}, m.firstname={firstname}, m.lastname={lastname}, m.phone={phone}, m.dateOfBirth={dateOfBirth}\
-				merge (m)-[mcr:issuedBy ]->(c) \
-				merge (m)-[mar:belongTo]->(a)";
+	var query="merge (m:member {email: {email}}) \
+				set m.qrCode={qrCode}, m.qrPic={qrPic}, \
+				    m.profilePic={profilePic}, \
+				    m.firstname={firstname}, \
+				    m.lastname={lastname}, \
+				    m.phone={phone}, \
+				    m.dateOfBirth={dateOfBirth}";
 
-    let dataReqs=[];
-    dataReqs.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.NEO4J]),
-        payload:{
-            resTopic:para.resTopic,
-            query:query,
-            para:para
-        }
-    });
+    Neo4jManager.process(query, para);
+}
 
-    dataReqs.push({
-        topic:AppUtil.makeTopic([Constant.DATA_MANAGER,Constant.S3]),
-        payload:files
-    });
+function info(para){
+    var query="match (m:member {qrCode: {qrCode}}) \
+				return { \
+				    profilePic:m.profilePic, \
+				    firstname:m.firstname, \
+				    lastname:m.lastname, \
+				    phone:m.phone, \
+				    dateOfBirth:m.dateOfBirth \
+				 }";
 
-    return dataReqs;
-
+    Neo4jManager.process(query, para);
 }
 
 export {Member}

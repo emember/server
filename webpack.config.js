@@ -22,6 +22,7 @@ module.exports={
 
         Server:'./src/Server.js',
         MessageHandlerTest:'./test/MessageHandlerTest.js',
+        S3ManagerTest:'./test/S3ManagerTest.js',
 
         // ConstantTest:'./test/ConstantTest.js'
     },

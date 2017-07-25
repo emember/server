@@ -16,21 +16,14 @@ class MessageHandler{
         let msgType =AppUtil.getLevelNTopic(topic, Constant.MESSAGE_TYPE);
 
         let para=payload;
-        para.companyId=Constant.COMPANY_ID;
 
         if(msgType==Constant.RETURN){
-            let resTopic=AppUtil.makeTopic([Constant.COMPANY_ID, Constant.OUT, appId, entity, func]);
+            let resTopic=AppUtil.makeTopic([Constant.OUT, appId, entity, func]);
             para.resTopic=resTopic;
         }
 
         //work out data request from entity
-        let dataReqs = EntityManager.callEntityFunc(entity, func, para);
-        // console.log('~~data reqs~~~',dataReqs);
-
-        //process data request
-        dataReqs.forEach(r=>{
-            DataManager.processDataReq(r);
-        });
+        EntityManager.callEntityFunc(entity, func, para);
     }
 }
 

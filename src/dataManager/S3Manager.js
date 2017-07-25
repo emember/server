@@ -1,11 +1,14 @@
+const AwsAccessKey= process.env.AWS_ACCESS_KEY;
+const AwsSecretKey=process.env.AWS_SECRET_KEY;
+
 class S3Manager{
     static process(payload){
         console.log('~~~~s3 process files~~~~',payload);
         var AWS = require('aws-sdk');
 
         var awsConfig = new AWS.Config({
-            accessKeyId: 'AKIAISXBE5UFZAO447YQ',
-            secretAccessKey:'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',
+            accessKeyId: AwsAccessKey,
+            secretAccessKey:AwsSecretKey,
             region: 'us-west-2'
         });
 
