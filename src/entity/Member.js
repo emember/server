@@ -58,7 +58,8 @@ function info(para){
 				    lastname:m.lastname, \
 				    phone:m.phone, \
 				    profilePic:m.profilePic, \
-				    dateOfBirth:m.dateOfBirth \
+				    dateOfBirth:m.dateOfBirth, \
+				    discount:m.discount \
 				 }";
 
     Neo4jManager.process(query, para);
