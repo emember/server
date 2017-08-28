@@ -4,22 +4,33 @@ import {Neo4jManager} from 'dataManager/Neo4jManager';
 import {S3Manager} from 'dataManager/S3Manager';
 
 class Member{
-	execute(action, para){
+	execute(action, para, cb){
 		switch(action){
 			case Constant.CREATE:
-                create(para);
+                create(para, cb);
 				break;
             case Constant.INFO:
-                info(para);
+                info(para, cb);
                 break;
             case Constant.UPDATE:
-                update(para);
+                update(para, cb);
+                break;
+            case Constant.LIST:
+                list(para, cb);
                 break;
 		}
 	}
 }
 
-function create(para){
+function list(para, cb) {
+
+    let query = "match (m:member) \
+                return {firstname:m.firstname, lastname:m.lastname, email:m.email}"
+    Neo4jManager.process(query, para, cb);
+
+}
+
+function create(para, cb){
 	var qrPicFilename=para.qrCode+"_qr.jpg";
 
 	var files =[
@@ -49,7 +60,7 @@ function create(para){
     Neo4jManager.process(query, para);
 }
 
-function info(para){
+function info(para, cb){
     var query="match (m:member {qrCode: {qrCode}}) \
 				return { \
 				    qrCode:m.qrCode, \
@@ -65,7 +76,7 @@ function info(para){
     Neo4jManager.process(query, para);
 }
 
-function update(para) {
+function update(para, cb) {
 	let files =[];
 
     if(para.profilePicObj){

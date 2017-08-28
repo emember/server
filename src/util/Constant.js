@@ -18,6 +18,7 @@ export const Constant={
     
     
     /** actions **/
+    LIST :'list',
     CREATE :'create',
     UPDATE :'update',
     SAVE :'save',

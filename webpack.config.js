@@ -18,9 +18,10 @@ fs.readdirSync("node_modules").filter(
 
 module.exports={
     entry:{
-        // Main:'./src/Lambda.js',
+        // Lambda:'./src/Lambda.js',
 
         Server:'./src/Server.js',
+        API:'./src/API.js',
         MessageHandlerTest:'./test/MessageHandlerTest.js',
         S3ManagerTest:'./test/S3ManagerTest.js',
 

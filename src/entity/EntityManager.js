@@ -3,7 +3,7 @@ import {Member} from './Member';
 import {Visit} from './Visit';
 
 class EntityManager{
-	static callEntityFunc(entityStr, func, para){
+	static callEntityFunc(entityStr, func, para, cb){
         let obj;
 		switch (entityStr){
 			case 'user':
@@ -16,7 +16,7 @@ class EntityManager{
                 obj = new Visit();
 		}
         console.log('~~~~~entity func called ~~~',entityStr, func, obj);
-		obj.execute(func, para);
+		obj.execute(func, para, cb);
 	}
 }
 

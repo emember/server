@@ -4,25 +4,34 @@ import {Neo4jManager} from 'dataManager/Neo4jManager';
 
 
 class User{
-	 execute(action, para){
+	 execute(action, para, cb){
 		switch(action){
+            case Constant.LIST:
+                list(para, cb);
+                break;
 			case Constant.CREATE:
-                create(para);
+                create(para, cb);
 				break;
 			case Constant.LOGIN:
-                login(para);
+                login(para, cb);
 				break;
 			case Constant.SEND_SC:
-                sendSecurityCode(para);
+                sendSecurityCode(para, cb);
 				break;
             case Constant.VERIFY:
-                verify(para);
+                verify(para, cb);
                 break;
             case Constant.SET_PIN:
-                setPin(para);
+                setPin(para,cb);
                 break;
 		}
 	}
+}
+
+function list(para, cb) {
+    let query = "match (u:user) \
+                return {userId:u.userId, firstname:u.firstname, lastname:u.lastname, email:u.email}"
+    Neo4jManager.process(query, para, cb);
 }
 
 function setPin(para) {

@@ -12,7 +12,7 @@ function sendResponse(topic, result) {
 
 
 class Neo4jManager{
-    static process(query, para){
+    static process(query, para, cb){
         console.log('~~~~neo4j run query~~~~',query);
         db.cypherQuery(
             query,
@@ -21,6 +21,8 @@ class Neo4jManager{
                 if(para.resTopic){
                     sendResponse(para.resTopic, {err:err, data:result?result.data:null});
                 }
+                console.log('~~~~neo4j query result~~~~',{err:err, data:result?result.data:null});
+                cb(err,result?result.data:null);
             });
     }
 }
