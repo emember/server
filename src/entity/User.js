@@ -15,6 +15,9 @@ class User{
 			case Constant.LOGIN:
                 login(para, cb);
 				break;
+            case Constant.WLOGIN:
+                wlogin(para, cb);
+                break;
 			case Constant.SEND_SC:
                 sendSecurityCode(para, cb);
 				break;
@@ -23,6 +26,9 @@ class User{
                 break;
             case Constant.SET_PIN:
                 setPin(para,cb);
+                break;
+            default:
+                cb(null,{func:'no'})
                 break;
 		}
 	}
@@ -68,6 +74,10 @@ function login(para) {
 	return {userId:u.email}";
 
     Neo4jManager.process(query, para);
+}
+
+function wlogin(para, cb){
+    cb(null,{})
 }
 
 function activate(para) {
