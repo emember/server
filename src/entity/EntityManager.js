@@ -16,7 +16,7 @@ class EntityManager{
                 obj = new Visit();
 		}
         console.log('~~~~~entity func called ~~~',entityStr, func, obj);
-		obj.execute(func, para, cb);
+        obj[func](para, cb);
 	}
 }
 

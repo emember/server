@@ -10,8 +10,13 @@ http.createServer((req, res)=>{
 
     const callback=(err, result)=>{
         if (err) {
-            res.statusCode = 400;
-            res.end(err.message);
+            res.writeHead(400, {
+                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
+                "Access-Control-Allow-Headers": "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With",
+                'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify({err:err.message}));
         }else{
             res.writeHead(200, {
                 'Access-Control-Allow-Origin': '*',
