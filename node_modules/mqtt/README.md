@@ -131,7 +131,7 @@ mqtt pub -t 'hello' -h 'test.mosquitto.org' -m 'from MQTT.js'
 See `mqtt help <command>` for the command help.
 
 <a name="api"></a>
-## API
+## API
 
   * <a href="#connect"><code>mqtt.<b>connect()</b></code></a>
   * <a href="#client"><code>mqtt.<b>Client()</b></code></a>
@@ -140,6 +140,7 @@ See `mqtt help <command>` for the command help.
   * <a href="#unsubscribe"><code>mqtt.Client#<b>unsubscribe()</b></code></a>
   * <a href="#end"><code>mqtt.Client#<b>end()</b></code></a>
   * <a href="#removeOutgoingMessage"><code>mqtt.Client#<b>removeOutgoingMessage()</b></code></a>
+  * <a href="#reconnect"><code>mqtt.Client#<b>reconnect()</b></code></a>
   * <a href="#handleMessage"><code>mqtt.Client#<b>handleMessage()</b></code></a>
   * <a href="#connected"><code>mqtt.Client#<b>connected</b></code></a>
   * <a href="#reconnecting"><code>mqtt.Client#<b>reconnecting</b></code></a>
@@ -217,6 +218,8 @@ the `connect` event. Typically a `net.Socket`.
   * `transformWsUrl` : optional `(url, options, client) => url` function
         For ws/wss protocols only. Can be used to implement signing
         urls which upon reconnect can have become expired.
+  * `resubscribe` : if connection is broken and reconnects,
+     subscribed topics are automatically subscribed again (default `true`)
 
 In case mqtts (mqtt over tls) is required, the `options` object is
 passed through to
@@ -272,7 +275,7 @@ Emitted when the client goes offline.
 Emitted when the client cannot connect (i.e. connack rc != 0) or when a
 parsing error occurs.
 
-### Event `'message'`
+#### Event `'message'`
 
 `function (topic, message, packet) {}`
 
@@ -282,7 +285,7 @@ Emitted when the client receives a publish packet
 * `packet` received packet, as defined in
   [mqtt-packet](https://github.com/mcollina/mqtt-packet#publish)
 
-### Event `'packetsend'`
+#### Event `'packetsend'`
 
 `function (packet) {}`
 
@@ -291,7 +294,7 @@ as well as packets used by MQTT for managing subscriptions and connections
 * `packet` received packet, as defined in
   [mqtt-packet](https://github.com/mcollina/mqtt-packet)
 
-### Event `'packetreceive'`
+#### Event `'packetreceive'`
 
 `function (packet) {}`
 
@@ -368,6 +371,12 @@ After this function is called, the messageId is released and becomes reusable.
 * `mid`: The messageId of the message in the outgoingStore.
 
 -------------------------------------------------------
+<a name="reconnect"></a>
+### mqtt.Client#reconnect()
+
+Connect again using the same options as connect()
+
+-------------------------------------------------------
 <a name="handleMessage"></a>
 ### mqtt.Client#handleMessage(packet, callback)
 
@@ -395,9 +404,12 @@ Boolean : set to `true` if the client is trying to reconnect to the server. `fal
 
 -------------------------------------------------------
 <a name="store"></a>
-### mqtt.Store()
+### mqtt.Store(options)
 
 In-memory implementation of the message store.
+
+* `options` is the store options:
+  * `clean`: `true`, clean inflight messages when close is called (default `true`)
 
 Other implementations of `mqtt.Store`:
 
@@ -407,6 +419,9 @@ Other implementations of `mqtt.Store`:
 * [mqtt-nedbb-store](https://github.com/behrad/mqtt-nedb-store) which
   uses [nedb](https://www.npmjs.com/package/nedb) to store the inflight
   data.
+* [mqtt-localforage-store](http://npm.im/mqtt-localforage-store) which uses
+  [localForage](http://npm.im/localforage) to store the inflight
+  data, making it usable in the Browser without browserify.
 
 -------------------------------------------------------
 <a name="put"></a>
