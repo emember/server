@@ -1,4 +1,4 @@
-**/node_modules
-**/dist
-**/.idea
-**/logs
+**/node_modules/
+**/dist/
+**/.idea/
+**/logs/
