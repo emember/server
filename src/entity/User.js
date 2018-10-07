@@ -1,11 +1,12 @@
-import {Neo4jManager} from 'dataManager/Neo4jManager';
+import {Neo4jManager} from '../dataManager/Neo4jManager';
 
 
 class User{
 
     list(para, cb) {
-        let query = "match (u:user) \
-                return {userId:u.userId, firstname:u.firstname, lastname:u.lastname, email:u.email}"
+        let query = "match (u:user{active:1})  \
+                     with u \
+                return { totalCount:count(u), items:collect({userId:u.userId, firstname:u.firstname, lastname:u.lastname, email:u.email})}"
         Neo4jManager.process(query, para, cb);
     }
 
@@ -59,7 +60,7 @@ class User{
 
     save(para, cb) {
         var query ="merge (u:user {userId:{userId}}) \
-    set u.firstname={firstname}, u.lastname={lastname}, u.email={email}";
+    set u.firstname={firstname}, u.lastname={lastname}, u.email={email}, u.active=1";
 
         Neo4jManager.process(query, para.user, cb);
     }
@@ -68,7 +69,7 @@ class User{
     remove(para, cb){
         var query ="match (u:user) \
     where u.userId in {userIds} \
-    delete u ";
+    set u.active=0 ";
 
         console.log(para, '~~~~!!!!!!!!!!!~~~~', query);
         Neo4jManager.process(query, para, cb);

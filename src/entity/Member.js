@@ -1,7 +1,7 @@
-import {Constant} from 'util/Constant';
-import {AppUtil} from 'util/AppUtil';
-import {Neo4jManager} from 'dataManager/Neo4jManager';
-import {S3Manager} from 'dataManager/S3Manager';
+import {Constant} from '../util/Constant';
+import {AppUtil} from '../util/AppUtil';
+import {Neo4jManager} from '../dataManager/Neo4jManager';
+import {S3Manager} from '../dataManager/S3Manager';
 
 class Member{
 	execute(action, para, cb){

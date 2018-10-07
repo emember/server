@@ -1,6 +1,6 @@
-import {Constant} from 'util/Constant';
-import {AppUtil} from 'util/AppUtil';
-import {Neo4jManager} from 'dataManager/Neo4jManager';
+import {Constant} from '../util/Constant';
+import {AppUtil} from '../util/AppUtil';
+import {Neo4jManager} from '../dataManager/Neo4jManager';
 
 class Visit{
     execute(action, para){

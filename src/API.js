@@ -36,7 +36,7 @@ http.createServer((req, res)=>{
     req.on('end',()=>{
         try{
             let para = JSON.parse(body);
-
+            console.log('coming request is ',para);
             EntityManager.callEntityFunc(para.entity, para.func, para, callback);
 
         }catch(err){

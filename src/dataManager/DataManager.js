@@ -1,7 +1,7 @@
-import {Constant} from 'util/Constant';
-import {Neo4jManager} from './Neo4jManager';
-import {S3Manager} from './S3Manager';
-import {AppUtil} from 'util/AppUtil';
+import {Constant} from '../util/Constant';
+import {Neo4jManager} from '../Neo4jManager';
+import {S3Manager} from '../S3Manager';
+import {AppUtil} from '../util/AppUtil';
 
 class DataManager{
     static processDataReq(req){
