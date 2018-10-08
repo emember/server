@@ -18,7 +18,7 @@ exports.handler = (event, context, callback) => {
     });
 
     /** server should publish message to data manager **/
-    // let requests = EntityManager.callEntityFunc(entity, func, para);
+    // let requests = HandlerManager.callFunc(handler, func, para);
     //
     // requests.forEach(r=>{
     //     AwsIotUtil.publish(r.topic, r.payload);
@@ -28,9 +28,9 @@ exports.handler = (event, context, callback) => {
 
 
     // var para =JSON.parse(event.body);
-    // var entity;
-    // entity=require('./'+para.entity);
-    // entity.execute(para.func, para, done);
+    // var handler;
+    // handler=require('./'+para.handler);
+    // handler.execute(para.func, para, done);
 };
 
 
@@ -54,16 +54,16 @@ exports.handler = (event, context, callback) => {
 // });
 //
 // mqttClient.on('message', (topic, message)=> {
-// 	let entity =AppUtil.getLevelNTopic(topic, Constant.ENTITY_IDX);
+// 	let handler =AppUtil.getLevelNTopic(topic, Constant.ENTITY_IDX);
 //     let func =AppUtil.getLevelNTopic(topic, Constant.FUNC_IDX);
 //
 // 	let para=message.toString()?JSON.parse(message.toString()):{};
 //
 //     para.companyId=Constant.COMPANY_ID;
 //     para.token=AppUtil.getLevelNTopic(topic, Constant.APP_ID_IDX);
-//     para.entity=entity;
+//     para.handler=handler;
 //     para.func=func;
 //
-//     AppUtil.callEntityFunc(entity, func, para);
+//     AppUtil.callFunc(handler, func, para);
 // });
 //

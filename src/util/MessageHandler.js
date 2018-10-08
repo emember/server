@@ -2,7 +2,7 @@ import {AppUtil} from 'util/AppUtil';
 import {AwsIotUtil} from 'util/AwsIotUtil';
 import {Constant} from  'util/Constant';
 import {DataManager} from 'dataManager/DataManager'
-import {EntityManager}from 'entity/EntityManager'
+import {EntityManager}from 'handler/HandlerManager'
 
 class MessageHandler{
     static process(topic, payload){
@@ -22,8 +22,8 @@ class MessageHandler{
             para.resTopic=resTopic;
         }
 
-        //work out data request from entity
-        EntityManager.callEntityFunc(entity, func, para);
+        //work out data request from handler
+        EntityManager.callFunc(entity, func, para);
     }
 }
 

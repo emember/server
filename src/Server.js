@@ -6,7 +6,7 @@ import {MessageHandler} from 'util/MessageHandler';
 import {AwsIotUtil} from 'util/AwsIotUtil';
 import {Constant} from  'util/Constant';
 import {DataManager} from 'dataManager/DataManager'
-import {EntityManager}from 'entity/EntityManager'
+import {HandlerManager}from 'src/handler/HandlerManager'
 
 console.log('~~~~starting server~~~~~~~~~~');
 

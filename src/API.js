@@ -1,7 +1,8 @@
 import http from 'http';
-import {EntityManager} from "./entity/EntityManager"
+import {HandlerManager} from "./handler/HandlerManager";
 
 http.createServer((req, res)=>{
+
     res.writeHead(200, {
         'Access-Control-Allow-Origin': '*',
         "Access-Control-Allow-Methods" : "GET,POST,PUT,DELETE,OPTIONS",
@@ -34,14 +35,13 @@ http.createServer((req, res)=>{
     });
 
     req.on('end',()=>{
-        try{
-            let para = JSON.parse(body);
-            console.log('coming request is ',para);
-            EntityManager.callEntityFunc(para.entity, para.func, para, callback);
-
-        }catch(err){
-            res.statusCode = 400;
-            res.end(err.message);
-        }
-    });
-}).listen(8000);
+        let apiCallPara = JSON.parse(body);
+        HandlerManager.callFunc(apiCallPara)
+            .then(function (data) {
+                callback(null,data);
+            })
+            .catch(function (err) {
+                callback(err,null);
+            });
+   });
+}).listen(8080);
