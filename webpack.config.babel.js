@@ -1,4 +1,6 @@
 import path from 'path';
+import nodeExternals from 'webpack-node-externals';
+
 
 export default {
     entry:{
@@ -27,10 +29,8 @@ export default {
             }
         ]
     },
-    node:{
-        fs:'empty',
-        tls:'empty'
-    },
+    target:'node',
+    externals:[nodeExternals()],
     plugins:[],
     stats:{
         colors:true

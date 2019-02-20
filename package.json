@@ -4,10 +4,12 @@
   "description": "emember server code",
   "main": "app.js",
   "scripts": {
+    "debug":"babel-node ./src/API.js",
     "webpack": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd dist; node API.js",
-    "es6": "babel-node ./src/API.js"
+    "es6": "babel-node ./src/API.js",
+    "packed": "babel-node ./dist/API.bundle.js"
   },
   "repository": {
     "type": "git",
@@ -27,12 +29,15 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/register": "^7.0.0",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.2",
     "aws-iot-device-sdk": "^2.2.1",
     "aws-sdk": "^2.329.0",
     "babel-loader": "^8.0.4",
@@ -41,6 +46,7 @@
     "nconf": "^0.8.5",
     "neo4j": "^2.0.0-RC2",
     "node-neo4j": "^2.0.3",
+    "pg": "^7.5.0",
     "winston": "^2.4.4"
   }
 }

@@ -21,7 +21,6 @@ export const Constant={
     LIST :'list',
     CREATE :'create',
     UPDATE :'update',
-    SAVE :'save',
     REMOVE :'remove',
     SAVE :'save',
     INFO :'info',
